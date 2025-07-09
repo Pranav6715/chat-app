@@ -19,10 +19,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         config.setApplicationDestinationPrefixes("/app");
     }
 
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat")
-                .setAllowedOrigins("http://localhost:5173")
-                .withSockJS();
-    }
+   @Override
+public void registerStompEndpoints(StompEndpointRegistry registry) {
+    registry.addEndpoint("/chat")
+            .setAllowedOrigins(
+                "https://chat-app-fdhb.onrender.com", 
+                "http://localhost:5173"
+            )
+            .withSockJS();
+}
+
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDateTime;
 
 @Controller
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("https://chat-app-fdhb.onrender.com")
 public class ChatController {
 
     private RoomRepository roomRepository;
