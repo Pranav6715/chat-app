@@ -5,24 +5,19 @@ build/
 *.jar
 *.war
 
-# Spring Boot config/secrets
+# Spring Boot env
 .env
 
-# IDE specific
+# IDEs
 .classpath
 .project
 .settings/
 .idea/
 *.iml
 
-# OS files
-.DS_Store
-Thumbs.db
-
 # Logs
 *.log
 
-# Docker (optional if using docker in backend)
-.docker/
-docker-compose.override.yml
-.dockerignore
+# OS/System files
+.DS_Store
+Thumbs.db
