@@ -63,7 +63,7 @@ const ChatPage = () => {
   useEffect(() => {
     const connectWebSocket = () => {
       ///SockJS
-      const sock = new SockJS(`${baseURL}/chat`);
+      const sock = new SockJS("/chat");
       const client = Stomp.over(sock);
 
       client.connect({}, () => {
