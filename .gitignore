@@ -1,4 +1,5 @@
 # Docker
+Dockerfile
 .docker/
 docker-compose.override.yml
 docker-compose.debug.yml
