@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { createRoomApi, joinChatApi } from "../services/RoomService";
 import useChatContext from "../context/ChatContext";
 import { useNavigate } from "react-router";
+
 const JoinCreateChat = () => {
   const [detail, setDetail] = useState({
     roomId: "",
@@ -31,11 +32,9 @@ const JoinCreateChat = () => {
 
   async function joinChat() {
     if (validateForm()) {
-      //join chat
-
       try {
         const room = await joinChatApi(detail.roomId);
-        toast.success("joined..");
+        toast.success("Joined room successfully!");
         setCurrentUser(detail.userName);
         setRoomId(room.roomId);
         setConnected(true);
@@ -53,85 +52,73 @@ const JoinCreateChat = () => {
 
   async function createRoom() {
     if (validateForm()) {
-      //create room
-      console.log(detail);
-      // call api to create room on backend
       try {
         const response = await createRoomApi(detail.roomId);
-        console.log(response);
-        toast.success("Room Created Successfully !!");
-        //join the room
+        toast.success("Room Created Successfully!");
         setCurrentUser(detail.userName);
         setRoomId(response.roomId);
         setConnected(true);
-
         navigate("/chat");
-
-        //forward to chat page...
       } catch (error) {
-        console.log(error);
         if (error.status == 400) {
-          toast.error("Room  already exists !!");
+          toast.error("Room already exists!");
         } else {
           toast("Error in creating room");
         }
+        console.log(error);
       }
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
-      <div className="p-10 dark:border-gray-700 border w-full flex flex-col gap-5 max-w-md rounded dark:bg-gray-900 shadow">
-        <div>
-          <img src={chatIcon} className="w-24 mx-auto" />
+    <div className="min-h-screen bg-gradient-to-tr from-slate-900 to-gray-800 flex items-center justify-center px-4">
+      <div className="p-8 md:p-10 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 w-full max-w-md rounded-2xl shadow-xl space-y-6">
+        <div className="text-center">
+          <img src={chatIcon} alt="Chat Icon" className="w-20 h-20 mx-auto mb-4" />
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Join or Create a Chat Room</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Enter your name and room ID to get started</p>
         </div>
 
-        <h1 className="text-2xl font-semibold text-center ">
-          Join Room / Create Room ..
-        </h1>
-        {/* name div */}
-        <div className="">
-          <label htmlFor="name" className="block font-medium mb-2">
-            Your name
+        <div>
+          <label htmlFor="userName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Your Name
           </label>
           <input
             onChange={handleFormInputChange}
             value={detail.userName}
             type="text"
-            id="name"
+            id="userName"
             name="userName"
-            placeholder="Enter the name"
-            className="w-full dark:bg-gray-600 px-4 py-2 border dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your name"
+            className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        {/* room id div */}
-        <div className="">
-          <label htmlFor="name" className="block font-medium mb-2">
-            Room ID / New Room ID
+        <div>
+          <label htmlFor="roomId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Room ID
           </label>
           <input
             name="roomId"
             onChange={handleFormInputChange}
             value={detail.roomId}
             type="text"
-            id="name"
-            placeholder="Enter the room id"
-            className="w-full dark:bg-gray-600 px-4 py-2 border dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="roomId"
+            placeholder="Enter Room ID or create new"
+            className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        {/* button  */}
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex justify-between gap-4 pt-2">
           <button
             onClick={joinChat}
-            className="px-3 py-2 dark:bg-blue-500 hover:dark:bg-blue-800 rounded-full"
+            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-200"
           >
             Join Room
           </button>
           <button
             onClick={createRoom}
-            className="px-3 py-2 dark:bg-orange-500 hover:dark:bg-orange-800 rounded-full"
+            className="w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl transition duration-200"
           >
             Create Room
           </button>
